@@ -1,0 +1,62 @@
+{% extends "customer/cust_master.html" %} {% block content %}{% load static %}
+<!--  -->
+{% if bag_data %}
+<div class="container">
+    <div class="row" style="min-height: 300px;">
+        <h2 class="mt-2 mb-2">My Orders</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in bag_data %}
+                <tr>
+                    <!-- <td></td> -->
+
+                    {% comment %} {% for product in product_data %} {% if order.product_id_id == product.id %}
+                    <td><img src="/media/{{ product.img }}" alt="" srcset="" height="100px" width="100px"></td>
+                    <td>{{ product.title }}</td>
+                    <td>
+                        <input type="number" onchange="update_quantity(this,'{{order.id}}','{{ product.price }}','price{{ forloop.parentloop.counter }}')" value="{{ order.quantity }}" min="1" max="99" style="width: 40px;">
+                    </td>
+                    <td><span>&#8377;</span><input type="number" id="price{{ forloop.parentloop.counter }}" value="{{ product.price }}" min="1" readonly></td>
+                    {% endif %}{% endfor %}
+                </tr>
+                {% endfor %} {% endcomment %}
+                {% comment %} {% for product in product_data %} {% if order.product_id_id == product.id %} {% endcomment %}
+                <td><img src="{{order.product_id.img.url }}" alt="" srcset="" height="100px" width="100px"></td>
+                <td>{{ order.product_id.title|title }}</td>
+                <td>
+                    {% comment %} <input type="number" onchange="update_quantity(this,'{{order.id}}','{{ product.price }}','price{{ forloop.parentloop.counter }}')" value="{{ order.qty }}" min="1" max="99" style="width: 40px;"> {% endcomment %}
+                    {% comment %} <input type="number" readonly value="{{ order.qty }}" min="1" max="99" style="width: 40px;"> {% endcomment %}
+               {{order.qty}} No{{order.qty|pluralize}} 
+                </td>
+                <td>
+                    {% comment %} <input type="number" onchange="update_quantity(this,'{{order.id}}','{{ product.price }}','price{{ forloop.parentloop.counter }}')" value="{{ order.qty }}" min="1" max="99" style="width: 40px;"> {% endcomment %}
+                    {% comment %} <input type="text" readonly value="{{ order.order_date }}"  > {% endcomment %}
+                    {{ order.order_date }}
+                </td>
+                <td><span>&#8377;</span>
+                    {% widthratio order.product_id.price 1 order.qty   %}
+                    {% comment %} <input type="number" id="price{{ order.id }}" value="{% widthratio order.product_id.price 1 order.qty   %}" min="1" readonly></td> {% endcomment %}
+                {% comment %} {% endif %} {% endcomment %}
+                	 
+            </tr>
+            {% endfor %}
+                
+
+            </tbody>
+        </table>
+        
+    </div>
+</div> 
+{% else %}
+<h1 class="text-danger" style="position:relative;top:150px;left:620px">No Data Found</h1>
+{% endif %}
+{% endblock %}

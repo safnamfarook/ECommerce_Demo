@@ -1,0 +1,146 @@
+{% extends "reseller/reseller_master.html" %} {% load static %} {% block reseller_content %}
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' rel="stylesheet">
+<link rel="stylesheet" href="{% static 'reseller/css/edit_product.css' %}">
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script src="{% static 'reseller/scripts/edit_product.js' %}"></script>
+
+
+<script>
+    (function($) {
+        'use strict';
+        $(function() {
+            if ($('#editable-form').length) {
+                $.fn.editable.defaults.mode = 'inline';
+                $.fn.editableform.buttons =
+                    '<button type="submit" class="btn btn-primary btn-sm editable-submit">' +
+                    '<i class="fa fa-fw fa-check"></i>' +
+                    '</button>' +
+                    '<button type="button" class="btn btn-warning btn-sm editable-cancel">' +
+                    '<i class="fa fa-fw fa-times"></i>' +
+                    '</button>';
+                // $('#username').editable({
+                //     type: 'text',
+                //     pk: 1,
+                //     name: 'username',
+                //     title: 'Enter username'
+                // });
+
+                $('#title').editable({
+                    validate: function(value) {
+                        if ($.trim(value) === '') return 'This field is required';
+                    }
+                });
+                $('#description').editable({
+                    validate: function(value) {
+                        if ($.trim(value) === '') return 'This field is required';
+                    }
+                });
+                $('#price').editable({
+                    validate: function(value) {
+                        if ($.trim(value) === '') return 'This field is required';
+                    }
+                });
+                $('#quantity').editable({
+                    validate: function(value) {
+                        if ($.trim(value) === '') return 'This field is required';
+                    }
+                });
+
+                $('#status').editable({
+                    source: [{
+                        value: 1,
+                        text: 'Active'
+                    }, {
+                        value: 2,
+                        text: 'Draft'
+                    }, {
+                        value: 3,
+                        text: 'Archived'
+
+                    }]
+                });
+                $('#user .editable').on('hidden', function(e, reason) {
+                    if (reason === 'save' || reason === 'nochange') {
+                        var $next = $(this).closest('tr').next().find('.editable');
+                        if ($('#autoopen').is(':checked')) {
+                            setTimeout(function() {
+                                $next.editable('show');
+                            }, 300);
+                        } else {
+                            $next.focus();
+                        }
+                    }
+                });
+            }
+        });
+    })(jQuery);
+</script>
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-lg-7 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Edit product</h4>
+                        <!-- <p class="card-description">Edit forms inline(click on the underline text to test below)</p> -->
+                        <div class="template-demo">
+                            <form id="editable-form" class="editable-form">
+                                {% csrf_token %}
+                                <!-- <div class="form-group row"> <label class="col-6 col-lg-4 col-form-label">Simple text field</label>
+                                    <div class="col-6 col-lg-8 d-flex align-items-center"> <a href="#" id="username" data-type="text" data-pk="1" class="editable editable-click" data-abc="true">awesome</a> </div>
+                                </div> -->
+                                <div class="form-group row"> <label class="col-6 col-lg-4 col-form-label">Title</label>
+                                    <div class="col-6 col-lg-8 d-flex align-items-center">
+                                        <a href="#" id="title" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter the title" class="editable editable-click editable-empty" data-abc="true">
+                                        {{product.title}}
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="form-group row"> <label class="col-6 col-lg-4 col-form-label">Description</label>
+                                    <div class="col-6 col-lg-8 d-flex align-items-center">
+                                        <a href="#" id="description" data-type="textarea" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter the title" class="editable editable-click editable-empty" data-abc="true">
+                                        {{product.desc}}
+                                    </a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row"> <label class="col-6 col-lg-4 col-form-label">Price</label>
+                                    <div class="col-6 col-lg-8 d-flex align-items-center">
+                                        <a href="#" id="price" data-type="number" data-placement="right" data-placeholder="Required" data-title="Enter your firstname" class="editable editable-click editable-empty" data-abc="true">
+                                            {{product.price}}</a>
+                                    </div>
+                                </div>
+                                <div class="form-group row"> <label class="col-6 col-lg-4 col-form-label">Quantity</label>
+                                    <div class="col-6 col-lg-8 d-flex align-items-center">
+                                        <a href="#" id="quantity" data-type="number" data-placement="right" data-placeholder="Required" data-title="Enter your firstname" class="editable editable-click editable-empty" data-abc="true">
+                                            {{product.quantity}}</a>
+                                    </div>
+                                </div>
+                                <div class="form-group row"> <label class="col-6 col-lg-4 col-form-label">Status</label>
+                                    <div class="col-6 col-lg-8 d-flex align-items-center">
+                                       
+                                        <a href="#" id="status" data-type="select" data-placement="right" data-placeholder="Required" data-title="Enter your firstname" class="editable editable-click editable-empty" data-abc="true">
+                                            {{product.status}}</a>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="col-6 col-lg-4 d-flex align-items-center">
+                                        <button type="button" class="btn btn-sm btn-success" style="align-items: right;" onclick="edit_product('{{product.id}}');">Save</button>
+                                        <button class="btn btn-sm btn-danger" style="align-items: left;">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--x-editable ends-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

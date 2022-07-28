@@ -1,0 +1,49 @@
+{% extends "reseller/reseller_master.html" %} {% block reseller_content %}{% load static %}
+
+<div class="container">
+    <div class="row" style="min-height: 300px;">
+        {% if orders %}
+        <h2 class=mt-2>Your Orders</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+            
+                <tr>
+                   
+                <td><img src="{{order.product_id.img.url }}" alt="" srcset="" height="80px" width="80px"></td>
+                <td>{{ order.product_id.title|title }}</td>
+                <td>
+                    {% comment %} <input type="number" onchange="update_quantity(this,'{{order.id}}','{{ product.price }}','price{{ forloop.parentloop.counter }}')" value="{{ order.qty }}" min="1" max="99" style="width: 40px;"> {% endcomment %}
+                    {{order.qty}} No{{order.qty|pluralize}}
+                
+                </td>
+                <td>
+                    {% comment %} <input type="number" onchange="update_quantity(this,'{{order.id}}','{{ product.price }}','price{{ forloop.parentloop.counter }}')" value="{{ order.qty }}" min="1" max="99" style="width: 40px;"> {% endcomment %}
+                    {% comment %} <input type="text" readonly value="{{ order.order_date }}"  > {% endcomment %}
+                    {{ order.order_date }}
+                </td>
+                <td><span>&#8377; </span>{% widthratio order.product_id.price 1 order.qty   %}</td>
+                {% comment %} {% endif %} {% endcomment %}
+                	 
+            </tr>
+            {% endfor %}
+                
+
+            </tbody>
+        </table>
+        {% else %}
+                    <h1 class="text-danger" style="margin-left:300px;margin-top:100px">No Orders Yet</h1>
+        {% endif %}
+    </div>
+</div> 
+
+{% endblock %}

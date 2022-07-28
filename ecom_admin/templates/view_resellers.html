@@ -1,0 +1,45 @@
+{% extends "admin_master.html" %} {% load static %} {% block admin_content %}
+<div style="min-height: 420px;">
+    
+    {% if resellers %}
+   
+    <table class="table table-hover">
+
+        <tr>
+            <th>Request Date</th>
+            <th>Company Name</th>
+            <th>Reg ID</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>Phone No</th>
+            <th>Account Holder</th>
+            <th>Account No</th>
+            <th>IFSC</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        {% for reseller in resellers %}
+
+            <tr>
+                <td>{{reseller.request_date}}</td>
+                <td>{{reseller.cmp_name|title}}</td>
+                <td>{{reseller.company_regid}}</td>
+                <td>{{reseller.cmp_addr|capfirst}}</td>
+                <td>{{reseller.country|title}}</td>
+                <td>{{reseller.cmp_phno}}</td>
+                <td>{{reseller.acc_holder}}</td>
+                <td>{{reseller.acc_no}}</td>
+                <td>{{reseller.acc_ifsc}}</td>
+                
+            </tr>
+
+        {% endfor %}
+    </table>
+
+</div>
+
+{% else %}
+<h3 style="position: relative;left: 200px;top: 100px;" class="text-danger">No Data</h3>
+{% endif %}
+{% endblock %}

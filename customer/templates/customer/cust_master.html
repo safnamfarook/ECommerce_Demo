@@ -1,0 +1,156 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="{% static 'ecom/scripts/validate.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'ecom/css/style-home.css' %}">
+    <link rel="stylesheet" href="{% static 'ecom/css/customer-style.css'%}">
+
+
+    <link rel="stylesheet" href="{% static 'ecom/css/style-home.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{% static 'ecom/scripts/jquery-3.5.1.min.js' %}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light navigation fixed-top">
+        <div class="mx-2 my-auto">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <img src="{% static 'ecom/images/cybersquare-logo.png' %} " alt=" " class="logo-nav">
+        </div>
+        <div class="collapse d-inline  navbar-collapse" id="navbarSupportedContent">
+            <form class="mx-2 my-auto d-inline w-100" action="{% url 'customer:search' %}" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" name="searchdata" id="serch" class="form-control border border-right-0" placeholder="Search...">
+                    <span class="input-group-append">
+                    <button class="btn btn-secondary border border-left-0 searh-btn" type="submit" id="srch">
+                        <i class="fa fa-search "></i>
+                    </button>
+                    </span>
+                </div>
+            </form>
+            <ul class="navbar-nav mr-auto " style="margin-left: 30px;">
+                {% if 'cust_id' in request.session %}
+                <div class="btn-group">
+                    <button type="button" style="background-color: transparent;" class="btn bg_none dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <h2 class="fas fa-user-cog"></h2>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{% url 'customer:profile' %}" type="button">Profile</a>
+                        <a class="dropdown-item" type="button" href="{% url 'customer:bag' %}">View Bag</a>
+                        <a class="dropdown-item" type="button" href="{% url 'customer:my_orders' %}">My orders</a>
+                        <a class="dropdown-item" href="{% url 'customer:send_otp' %}" type="button">Change password</a>
+                        <a class="dropdown-item" href="{% url 'customer:logout' %}" type="button">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="login-nav">
+                    <button onclick="location.href = '/ecom/login'" type="button" class="btn">Login</button>
+                </div>
+                {% endif %}
+
+            </ul>
+        </div>
+    </nav>
+    <nav class=" navbar navbar-expand-lg nav-list rounded-bottom" style="margin-top: 75px;">
+        <ul class="navbar-nav">
+            <div class="dropdown drpdown">
+                <li class="dropbtn">Electronics </li>
+                <div class="dropdown-content drpdown-content">
+                    <a href="#" class="btn">Mobile & accessories</a>
+                    <a href="#" class="btn">Laptop</a>
+                    <a href="#" class="btn">Speaker</a>
+                    <a href="#" class="btn">Camera</a>
+                    <a href="#" class="btn">Gaming & Accessories</a>
+                </div>
+            </div>
+            <div class="dropdown drpdown">
+                <li class="dropbtn">TV & appliances </li>
+                <div class="dropdown-content drpdown-content">
+                    <li><a href="#" class="btn">Television</a></li>
+                    <li><a href="#" class="btn">Refrigerators</a></li>
+                    <li><a href="#" class="btn">Washing Machine</a></li>
+                    <li><a href="#" class="btn">Kitchen Appliances</a></li>
+                </div>
+            </div>
+            <div class="dropdown drpdown">
+                <li class="dropbtn">Sports </li>
+                <div class="dropdown-content drpdown-content">
+                    <li><a href="#" class="btn">Football</a></li>
+                    <li><a href="#" class="btn">Cricket</a></li>
+                    <li><a href="#" class="btn">Tennis</a></li>
+                </div>
+            </div>
+            <div class="dropdown drpdown">
+                <li class="dropbtn">Fashion </li>
+                <div class="dropdown-content drpdown-content">
+                    <li><a href="#" class="btn">Mens</a></li>
+                    <li><a href="#" class="btn">Womens</a></li>
+                    <li><a href="#" class="btn">kids</a></li>
+                </div>
+            </div>
+        </ul>
+    </nav>
+    <div style="min-height:400px">
+        {% block content %}
+        {% endblock %}
+    </div>
+  
+    <!-- Navigation bar ends here -->
+    <footer class="foot text-center text-lg-start" style="background-color: #e0f2f1;">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Registred office address</h5>
+                    <p>
+                        5th Floor, CAFIT Square, Hilite Business Park, Thondayad Bye-Pass Thondayad, Hilite City, Poovangal, Kozhikode, Kerala 673016
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0" style="text-align: left;">
+                    <h5 class="text-uppercase">POLICY</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="#!" class="text-dark">Return Policy</a></li>
+                        <li><a href="#!" class="text-dark">Terms of use</a></li>
+                        <li><a href="#!" class="text-dark">Security</a></li>
+                        <li><a href="#!" class="text-dark">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0" style="text-align: left;">
+                    <h5 class="text-uppercase mb-0">About</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#!" class="text-dark">Contact Us</a></li>
+                        <li><a href="#!" class="text-dark">About Us</a></li>
+                        <li><a href="#!" class="text-dark">Careers</a></li>
+                        <li><a href="#!" class="text-dark">Cybersquare Wholesale</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0" style="text-align: left;">
+                    <h5 class="text-uppercase mb-0">Social</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#!" class="text-dark">Facebook</a></li>
+                        <li><a href="#!" class="text-dark">Twitter</a></li>
+                        <li><a href="#!" class="text-dark">Youtube</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            <img src="{% static 'ecom/images/cards.png' %}" class="img-fluid w-25" alt="">
+        </div>
+    </footer>
+
+</body>
+
+</html>

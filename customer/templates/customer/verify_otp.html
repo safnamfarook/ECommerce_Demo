@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="{% static 'ecom/scripts/validate.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'ecom/css/style-home.css' %}">
+    <link rel="stylesheet" href="{% static 'ecom/css/customer-style.css'%}">
+
+
+    <link rel="stylesheet" href="{% static 'ecom/css/style-home.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Start Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navigation fixed-top">
+        <div class="mx-2 my-auto">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            <img src="{% static 'ecom/images/cs_ecom_logo.png' %} " alt=" " class="logo-nav">
+        </div>
+    </nav>
+    <div class="container">
+        <br><br>
+        <div class="row" style="margin-top: 100px;">
+            <div class="col-md-3"></div>
+            <div class="form-login col-md-6">
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <p style="color:blue;">OTP send to your email.</p>
+                        <h5 for="otp">Please enter your OTP</h5>
+                        <div class="form-inline">
+                            <input id="text" required class="form-control input-sm chat-input"  name="inp_otp" placeholder="Enter OTP" />
+                            <button type="submit" class="btn btn-md" style="background-color: #00796b; color: white; float: right;" onclick="return signup_validate()">Verify OTP</button>
+                        </div>
+                        <p style="color: red;">{{ msg }}</p>
+                    </div>
+                </form>
+                <a href="">Resend OTP?</a>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <br><br>
+    </div>
+    <div style="margin-top: 30px;">
+        <footer class="foot text-center text-lg-start" style="background-color: #e0f2f1;">
+            <div class="container p-4">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Registred office address</h5>
+                        <p>
+                            5th Floor, CAFIT Square, Hilite Business Park, Thondayad Bye-Pass Thondayad, Hilite City, Poovangal, Kozhikode, Kerala 673016
+                        </p>
+                    </div>
+                    <div class="col-lg-2 col-md-4 mb-4 mb-md-0" style="text-align: left;">
+                        <h5 class="text-uppercase">POLICY</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#!" class="text-dark">Return Policy</a></li>
+                            <li><a href="#!" class="text-dark">Terms of use</a></li>
+                            <li><a href="#!" class="text-dark">Security</a></li>
+                            <li><a href="#!" class="text-dark">Privacy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-4 mb-4 mb-md-0" style="text-align: left;">
+                        <h5 class="text-uppercase mb-0">About</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#!" class="text-dark">Contact Us</a></li>
+                            <li><a href="#!" class="text-dark">About Us</a></li>
+                            <li><a href="#!" class="text-dark">Careers</a></li>
+                            <li><a href="#!" class="text-dark">Cybersquare Wholesale</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-4 mb-4 mb-md-0" style="text-align: left;">
+                        <h5 class="text-uppercase mb-0">Social</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#!" class="text-dark">Facebook</a></li>
+                            <li><a href="#!" class="text-dark">Twitter</a></li>
+                            <li><a href="#!" class="text-dark">Youtube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                <img src="{% static 'ecom/images/cards.png' %}" class="img-fluid w-25" alt="">
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+/* .login-container {
+    padding-top: 10%;
+    background-color: rgb(230, 218, 240);
+} */
+
+.signup-container {
+    background-color: #b2dfdb;
+    padding-top: 30px;
+}
+
+.login-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-login {
+    background-color: #B2DFDB;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 15px;
+    border-color: #1d1c1c;
+    border-width: 5px;
+    box-shadow: 1px 1px 0px #4b978c;
+}
+
+.login-head {
+    border: 0 solid #fff;
+    border-bottom-width: 1px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.fgt-password {
+    text-decoration: none;
+    color: black;
+}

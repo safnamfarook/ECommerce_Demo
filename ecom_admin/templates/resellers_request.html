@@ -1,0 +1,49 @@
+{% extends "admin_master.html" %} {% load static %} {% block admin_content %}
+<div style="min-height: 420px;">
+    
+    {% if request_data %}
+   
+    <table class="table table-hover">
+
+        <tr>
+            <th>Request Date</th>
+            <th>Company Name</th>
+            <th>Reg ID</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>Phone No</th>
+            <th>Account Holder</th>
+            <th>Account No</th>
+            <th>IFSC</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        {% for data in request_data %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <tr>
+                <td>{{data.request_date}}</td>
+                <td>{{data.cmp_name|title}}</td>
+                <td>{{data.company_regid}}</td>
+                <td>{{data.cmp_addr|capfirst}}</td>
+                <td>{{data.country|title}}</td>
+                <td>{{data.cmp_phno}}</td>
+                <td>{{data.acc_holder}}</td>
+                <td>{{data.acc_no}}</td>
+                <td>{{data.acc_ifsc}}</td>
+                <td><button name="approve" class="btn btn-success">Active</button></td>
+                <td><button name="reject" class="btn btn-danger">Reject</button></td>
+                <td><input type="hidden" value="{{data.id}}" name="req_id" id=""></td>
+            </tr>
+        </form>
+
+        {% endfor %}
+    </table>
+
+</div>
+
+{% else %}
+<h3 style="position: relative;left: 200px;top: 100px;" class="text-danger">No Request</h3>
+{% endif %}
+{% endblock %}

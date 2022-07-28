@@ -1,0 +1,74 @@
+{% extends "customer/cust_master.html" %} {% block content %}{% load static %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- start of navigation links to other pages -->
+        <div class="col-md-12">
+            <ul class="nav ">
+                <li class="nav-item">
+                    <a class="nav-link  link-dark" href="">Home /</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-dark" href="">{{ product.category }} /</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-dark  " href="">{{ product.subcategory }} /</a>
+                </li>
+            </ul>
+        </div>
+        <!-- end of navigation links to other pages -->
+        <!-- start of product pictures -->
+        <div class="col-md-8">
+            <img src="{{ product.img.url }}" class="card-img-top" alt="..." style="width:80%">
+        </div>
+        <!-- end of product pictures -->
+        <!-- start product details -->
+        <div class="col-md-4">
+            <h3>{{product.title}}</h3>
+            <h6>{{product.desc}}</h6>
+            <button type="button" class="btn-xs rounded-3 bg-transparent" disabled>4.5 stars</button>
+            <hr>
+            <h4 style="display: inline;" class="p-1">Rs. {{product.price}} </h4><br><br>
+            <h6 class="font-weight-bolder">Quantity required</h6>
+            <input type="number" class="form-control" id="quantity"  value="1" min="1" placeholder="Enter quantity">
+            <br><br>
+            {% if 'cust_id' in request.session %}
+            <button type="button" id="btn_add" onclick="addtobag('{{product.id}}')" class="btn orange-btn" href="">Add to Bag</button>
+            <button type="button" class="btn border-dark">Wishlist</button>
+            {% endif %}
+        </div>
+        <!-- end of product details -->
+    </div>
+</div>
+<script>
+    function addtobag(id) {
+        $.ajaxSetup({
+            headers: {
+              "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val()
+            }
+        })
+        $.ajax({
+            url: 'http://127.0.0.1:8000/ecom/add-to-bag',
+            type: 'post',
+            data: {
+                quantity: quantity,
+                id: id,
+                quantity: $("#quantity").val(),
+            },
+            success: function(response) {
+                if (response.status == 'success') {
+                    $("<div title='Product added to bag'>Product added to bag successfully</div>").dialog();
+                    $("#btn_add").html('Added to bag');
+                   
+                } else {
+                    $("<div title='Product'>Product Already in Bag</div>").dialog();
+                }
+            }
+        })
+    }
+</script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js" integrity="sha256-JklDYODbg0X+8sPiKkcFURb5z7RvlNMIaE3RA2z97vw=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+<!-- <div id="dial"></div> -->
+{% endblock %}
